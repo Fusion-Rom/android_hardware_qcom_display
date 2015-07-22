@@ -1,3 +1,7 @@
+ifeq ($(TARGET_USE_ION_COMPAT), true)
+LOCAL_CFLAGS += -D_ION_HEAP_MASK_COMPATIBILITY_WA
+endif
+
 display-hals := libgralloc libgenlock libcopybit
 display-hals += libhwcomposer liboverlay libqdutils libexternal libqservice
 display-hals += libmemtrack

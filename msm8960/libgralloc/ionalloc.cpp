@@ -41,6 +41,12 @@ using gralloc::IonAlloc;
 
 #define ION_DEVICE "/dev/ion"
 
+#ifdef _ION_HEAP_MASK_COMPATIBILITY_WA
+#define ION_HEAP_MASK heap_mask
+#else
+#define ION_HEAP_MASK heap_id_mask
+#endif
+
 int IonAlloc::open_device()
 {
     if(mIonFd == FD_INIT)
@@ -73,7 +79,7 @@ int IonAlloc::alloc_buffer(alloc_data& data)
 
     ionAllocData.len = data.size;
     ionAllocData.align = data.align;
-    ionAllocData.heap_id_mask = data.flags & ~ION_SECURE;
+    ionAllocData.ION_HEAP_MASK = data.flags & ~ION_SECURE;
     ionAllocData.flags = data.uncached ? 0 : ION_FLAG_CACHED;
     // ToDo: replace usage of alloc data structure with
     //  ionallocdata structure.
