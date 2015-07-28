@@ -16,6 +16,10 @@ common_libs := liblog libutils libcutils libhardware
 common_flags := -DDEBUG_CALC_FPS -Wno-missing-field-initializers
 common_flags += -Werror -Wno-unused-parameter
 
+ifeq ($(TARGET_USE_ION_COMPAT), true)
+common_flags += -D_ION_HEAP_MASK_COMPATIBILITY_WA
+endif
+
 ifeq ($(ARCH_ARM_HAVE_NEON),true)
     common_flags += -D__ARM_HAVE_NEON
 endif
