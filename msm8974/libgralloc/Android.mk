@@ -42,4 +42,8 @@ LOCAL_CFLAGS                  := $(common_flags) -DLOG_TAG=\"qdmemalloc\"
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps) $(kernel_deps)
 LOCAL_SRC_FILES               := ionalloc.cpp alloc_controller.cpp
 
+ifeq ($(TARGET_USE_ION_COMPAT), true)
+LOCAL_CFLAGS += -D_ION_HEAP_MASK_COMPATIBILITY_WA
+endif
+
 include $(BUILD_SHARED_LIBRARY)
